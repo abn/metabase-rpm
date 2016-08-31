@@ -2,7 +2,7 @@
 
 Name:           metabase
 Version:        0.19.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Metabase
 
 Group:          Applications/Databases
@@ -47,13 +47,16 @@ getent group %{name} >/dev/null && groupdel %{name}
 
 %files
 %defattr(-,root,root,-)
-%dir %attr(750, %{name}, %{name}) %{_sharedstatedir}/%{name}
+%dir %attr(755, %{name}, %{name}) %{_sharedstatedir}/%{name}
 %attr(644, %{name}, %{name}) %{_sharedstatedir}/%{name}/%{name}.jar
 %attr(644, root, root) %{_unitdir}/%{name}.service
 %config(noreplace) %attr(640, root, %{name}) %{_sysconfdir}/sysconfig/%{name}
 %doc %{_docdir}/%{name}/LICENSE
 
 %changelog
+* Wed Aug 31 2016 Arun Babu Neelicattu <arun.neelicattu@gmail.com> - 0.19.3-2
+- fix file permissions on shared state directory
+
 * Wed Aug 31 2016 Arun Babu Neelicattu <arun.neelicattu@gmail.com> - 0.19.3-1
 - v0.19.3
 
