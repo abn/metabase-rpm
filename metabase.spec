@@ -1,8 +1,8 @@
 %define debug_package %{nil}
 
 Name:           metabase
-Version:        0.19.3
-Release:        2%{?dist}
+Version:        0.19.2
+Release:        1%{?dist}
 Summary:        Metabase
 
 Group:          Applications/Databases
@@ -54,9 +54,6 @@ getent group %{name} >/dev/null && groupdel %{name}
 %doc %{_docdir}/%{name}/LICENSE
 
 %changelog
-* Wed Aug 31 2016 Arun Babu Neelicattu <arun.neelicattu@gmail.com> - 0.19.3-2
-- fix file permissions on shared state directory
-
-* Wed Aug 31 2016 Arun Babu Neelicattu <arun.neelicattu@gmail.com> - 0.19.3-1
-- v0.19.3
+* Wed Aug 31 2016 Arun Babu Neelicattu <arun.neelicattu@gmail.com> - 0.19.2-1
+- revert to 0.19.2
 
