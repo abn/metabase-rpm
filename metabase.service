@@ -1,0 +1,16 @@
+[Unit]
+Description=Metabase
+Documentation=http://www.metabase.com/docs
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=metabase
+WorkingDirectory=/var/lib/metabase
+EnvironmentFile=-/etc/sysconfig/metabase
+ExecStart=/usr/bin/java -jar /var/lib/metabase/metabase.jar ${EXTRA_OPTS}
+TimeoutStopSec=5s
+KillSignal=SIGINT
+
+[Install]
+WantedBy=multi-user.target
