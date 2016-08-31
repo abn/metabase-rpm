@@ -2,7 +2,7 @@
 
 Name:           metabase
 Version:        0.19.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Metabase
 
 Group:          Applications/Databases
@@ -40,8 +40,8 @@ getent passwd %{name} >/dev/null || \
 exit 0
 
 %postun
-getent passwd %{name} >/dev/null && userdel %{name}
-getent group %{name} >/dev/null && groupdel %{name}
+getent passwd %{name} >/dev/null && userdel %{name} || exit 0
+getent group %{name} >/dev/null && groupdel %{name} || exit 0
 
 %clean
 
@@ -54,6 +54,9 @@ getent group %{name} >/dev/null && groupdel %{name}
 %doc %{_docdir}/%{name}/LICENSE
 
 %changelog
+* Wed Aug 31 2016 Arun Babu Neelicattu <arun.neelicattu@gmail.com> - 0.19.2-2
+- fix %postun
+
 * Wed Aug 31 2016 Arun Babu Neelicattu <arun.neelicattu@gmail.com> - 0.19.2-1
 - revert to 0.19.2
 
