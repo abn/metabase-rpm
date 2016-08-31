@@ -18,7 +18,7 @@ script:
 
 deploy:
   provider: packagecloud
-  repository: repository
+  repository: metabase
   username: abn
   dist: ${OS_DIST}/${OS_VERSION}
   skip_cleanup: true
