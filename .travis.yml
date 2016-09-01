@@ -1,12 +1,14 @@
 sudo: required
-language: generic
+language: python
 
 env:
   global:
     - DOCKER_IMAGE=alectolytic/rpmbuilder
+    - COPR_REPOSITORY=metabase
+    - OS_ARCH=x86_64
   matrix:
     - OS_TYPE=fedora OS_DIST=fedora OS_VERSION=24
-    - OS_TYPE=centos OS_DIST=el OS_VERSION=7
+    - OS_TYPE=centos OS_DIST=epel OS_VERSION=7
 
 services:
   - docker
@@ -14,15 +16,10 @@ services:
 install: true
 
 script:
-  - docker run -v ${PWD}:/sources -v ${PWD}:/output:Z ${DOCKER_IMAGE}:${OS_TYPE}-${OS_VERSION}
+  - docker run -v ${PWD}:/sources -v ${PWD}:/output:Z -e "SRPM_ONLY=1" ${DOCKER_IMAGE}:${OS_TYPE}-${OS_VERSION}
 
-deploy:
-  provider: packagecloud
-  repository: metabase
-  username: abn
-  dist: ${OS_DIST}/${OS_VERSION}
-  skip_cleanup: true
-  token:
-    secure: LZkyz54fpAzyriAIVtpx9rWA79iUVEqzdm+Q/w8X7v4H/a3lCy5jhbURgkr78nORPYaH02/xAkBDAA/4BvH+Trc1EoF3VC6q3uup9Rjp0U2+42ZHYM/Bf3a2ccy6d4ytVG50fjiL4KLkXKbBl3iFaWHj5YN8HsYB8z8kJ1KGERbCfCU2DJTdS8db9eeysfySy+ZCNwbQh5QrXjyz/TSVg+5bAt/S17UMvtpTlLT53So49xS5HipmOFg7vqDRCDYIemKQkq+ou/cAX0UtJqYqJKL6xCEhxBNNkA+/GEX1inJddaIaVHDzDsfWk7W4Hx03qQwaxcUi5E2EA4qZQuKNZErT8ihxYoMWXGpLsgxgrDs4IyytSJvolz58LRKseRlutNvBWKh4UfCDolRAXO7KWqJxvkXpdPsnjKbBONpPeeVSvZslV35EH2SstFb68gKdjTfQAxt/TEjpJwk4qGhazX9R1tpGm+t2X2Qi8+ujInNWyGfaBJR8J+lxeC8wjwpozuES1iebOZDET2n0tAVjJ4q0UTJ4OefYMzMSlzb3y1pOd0DI8soqx9TyBZ7z+C5XLj2FLjZMKaRWwN5iGWqexALNxhfHsElm7yHw2FhSi4vEKBLdJwbzvTibkzeDsgavOzD13E3eJO1wibhC3InnolPH0zRA0zcc7Ch5v+R8CPk=
-  on:
-    tags: true
+after_success:
+  - pip install copr-cli simplejson
+  - openssl aes-256-cbc -K $encrypted_7dc495538357_key -iv $encrypted_7dc495538357_iv -in .copr.enc -out .copr -d
+  - if [ ! -z "${TRAVIS_TAG}" ]; then copr-cli --config .copr build -r ${OS_DIST}-${OS_VERSION}-${OS_ARCH} ${COPR_REPOSITORY} *.src.rpm; fi
+
