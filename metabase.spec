@@ -1,8 +1,9 @@
 %define debug_package %{nil}
+%define __jar_repack  %{nil}
 
 Name:           metabase
 Version:        0.19.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Metabase
 
 Group:          Applications/Databases
@@ -54,6 +55,9 @@ getent group %{name} >/dev/null && groupdel %{name} || exit 0
 %doc %{_docdir}/%{name}/LICENSE
 
 %changelog
+* Fri Sep 02 2016 Arun Babu Neelicattu <arun.neelicattu@gmail.com> - 0.19.2-3
+- set __jar_repack to nill
+
 * Wed Aug 31 2016 Arun Babu Neelicattu <arun.neelicattu@gmail.com> - 0.19.2-2
 - fix %postun
 
