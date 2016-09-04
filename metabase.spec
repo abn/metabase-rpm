@@ -3,7 +3,7 @@
 
 Name:           metabase
 Version:        0.19.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Metabase
 
 Group:          Applications/Databases
@@ -14,7 +14,7 @@ Source1:        metabase.service
 Source2:        metabase.sysconfig
 Source3:        LICENSE
 
-BuildRequires: systemd-units
+BuildRequires: systemd
 
 Requires(pre): shadow-utils
 Requires:      systemd java-headless
@@ -40,9 +40,14 @@ getent passwd %{name} >/dev/null || \
     -c "%{name} user" %{name}
 exit 0
 
+%post
+%systemd_post %{name}.service
+
+%preun
+%systemd_preun %{name}.service
+
 %postun
-getent passwd %{name} >/dev/null && userdel %{name} || exit 0
-getent group %{name} >/dev/null && groupdel %{name} || exit 0
+%systemd_postun_with_restart %{name}.service
 
 %clean
 
@@ -55,6 +60,9 @@ getent group %{name} >/dev/null && groupdel %{name} || exit 0
 %doc %{_docdir}/%{name}/LICENSE
 
 %changelog
+* Sun Sep 04 2016 Arun Babu Neelicattu <arun.neelicattu@gmail.com> - 0.19.2-4
+- improve adherence to fedora packaging guidelines
+
 * Fri Sep 02 2016 Arun Babu Neelicattu <arun.neelicattu@gmail.com> - 0.19.2-3
 - set __jar_repack to nill
 
