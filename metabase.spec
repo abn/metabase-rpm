@@ -2,8 +2,8 @@
 %define __jar_repack  %{nil}
 
 Name:           metabase
-Version:        0.19.2
-Release:        5%{?dist}
+Version:        0.19.3
+Release:        1%{?dist}
 Summary:        Metabase
 
 Group:          Applications/Databases
@@ -63,6 +63,9 @@ exit 0
 %doc %{_docdir}/%{name}/LICENSE
 
 %changelog
+* Mon Sep 05 2016 Arun Babu Neelicattu <arun.neelicattu@gmail.com> - 0.19.3-1
+- upgrade to 0.19.3
+
 * Mon Sep 05 2016 Arun Babu Neelicattu <arun.neelicattu@gmail.com> - 0.19.2-5
 - introduce wrapper script and java options
 
