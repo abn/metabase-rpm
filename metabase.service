@@ -8,7 +8,8 @@ Wants=network-online.target
 User=metabase
 WorkingDirectory=/var/lib/metabase
 EnvironmentFile=-/etc/sysconfig/metabase
-ExecStart=/usr/bin/java -jar /var/lib/metabase/metabase.jar ${EXTRA_OPTS}
+ExecStart=/usr/bin/metabase ${EXTRA_OPTS}
+SuccessExitStatus=130
 TimeoutStopSec=5s
 KillSignal=SIGINT
 

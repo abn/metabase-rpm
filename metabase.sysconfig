@@ -24,5 +24,9 @@
 # MB_PASSWORD_COMPLEXITY=strong
 # MB_PASSWORD_LENGTH=10
 
+# Java options
+MB_JAVA_BIN=/usr/bin/java
+MB_JAVA_OPTS=-Xmx256m
+
 # add any extra command line options
 EXTRA_OPTS=

@@ -3,7 +3,7 @@
 
 Name:           metabase
 Version:        0.19.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Metabase
 
 Group:          Applications/Databases
@@ -13,6 +13,7 @@ Source0:        http://downloads.metabase.com/v%{version}/metabase.jar
 Source1:        metabase.service
 Source2:        metabase.sysconfig
 Source3:        LICENSE
+Source4:        metabase.sh
 
 BuildRequires: systemd
 
@@ -32,6 +33,7 @@ install -D %{SOURCE0} %{buildroot}/%{_sharedstatedir}/%{name}/%{name}.jar
 install -D %{SOURCE1} %{buildroot}/%{_unitdir}/%{name}.service
 install -D %{SOURCE2} %{buildroot}/%{_sysconfdir}/sysconfig/%{name}
 install -D %{SOURCE3} %{buildroot}/%{_docdir}/%{name}/LICENSE
+install -D %{SOURCE4} %{buildroot}/%{_bindir}/metabase
 
 %pre
 getent group %{name} >/dev/null || groupadd -r %{name}
@@ -54,12 +56,16 @@ exit 0
 %files
 %defattr(-,root,root,-)
 %dir %attr(755, %{name}, %{name}) %{_sharedstatedir}/%{name}
+%attr(755, root, root) %{_bindir}/metabase
 %attr(644, %{name}, %{name}) %{_sharedstatedir}/%{name}/%{name}.jar
 %attr(644, root, root) %{_unitdir}/%{name}.service
 %config(noreplace) %attr(640, root, %{name}) %{_sysconfdir}/sysconfig/%{name}
 %doc %{_docdir}/%{name}/LICENSE
 
 %changelog
+* Mon Sep 05 2016 Arun Babu Neelicattu <arun.neelicattu@gmail.com> - 0.19.2-5
+- introduce wrapper script and java options
+
 * Sun Sep 04 2016 Arun Babu Neelicattu <arun.neelicattu@gmail.com> - 0.19.2-4
 - improve adherence to fedora packaging guidelines
 
