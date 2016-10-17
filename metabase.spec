@@ -2,7 +2,7 @@
 %define __jar_repack  %{nil}
 
 Name:           metabase
-Version:        0.19.3
+Version:        0.20.0
 Release:        1%{?dist}
 Summary:        Metabase
 
@@ -63,6 +63,9 @@ exit 0
 %doc %{_docdir}/%{name}/LICENSE
 
 %changelog
+* Mon Oct 17 2016 Arun Babu Neelicattu <arun.neelicattu@gmail.com> - 0.20.0-1
+- upgrade to 0.20.0
+
 * Mon Sep 05 2016 Arun Babu Neelicattu <arun.neelicattu@gmail.com> - 0.19.3-1
 - upgrade to 0.19.3
 
