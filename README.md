@@ -1,4 +1,4 @@
-# RPM Package: Metabase
+# RPM Package: Metabase [![Build Status](https://travis-ci.org/abn/metabase-rpm.svg?branch=master)](https://travis-ci.org/abn/metabase-rpm)
 
 This repository holds the RPM package source for [Metabase](http://www.metabase.com/). 
 
